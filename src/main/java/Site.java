@@ -1,4 +1,8 @@
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +16,8 @@ public class Site {
     private int elementCount;
     private String uniqueID;
 
-    final private List<String> paramKeys = Arrays.asList("Name",
+    final private List<String> paramKeys = Arrays.asList(
+            "Name",
             "Peak Power",
             "Nominal Power",
             "Description",
@@ -29,8 +34,34 @@ public class Site {
         exportJson(docs);
     }
 
-    private void exportJson(Object docs) {
+    private void exportJson(Object json) {
+        JSONObject docs = (JSONObject) json;
 
+        if (docs.containsKey("Name")) {
+            this.name = (String) docs.get("Name");
+        }
+        if (docs.containsKey("AlarmColor")) {
+            this.alarmColor = (long) docs.get("AlarmColor");
+        }
+        if (docs.containsKey("Id")) {
+            this.id = (int) ((long) docs.get("Id"));
+        }
+        if (docs.containsKey("Parameters")) {
+            JSONArray jsonParameters = (JSONArray) docs.get("Parameters");
+            jsonParametersToMap(jsonParameters);
+        }
+        if (docs.containsKey("DatasourcesCount")) {
+            this.dataSourcesCount = (int) ((long) docs.get("DatasourcesCount"));
+        }
+        if (docs.containsKey("_alertIcon")) {
+            this.alertIcon = (String) docs.get("_alertIcon");
+        }
+        if (docs.containsKey("ElementCount")) {
+            this.elementCount = (int) ((long) docs.get("ElementCount"));
+        }
+        if (docs.containsKey("UniqueID")) {
+            this.uniqueID = (String) docs.get("UniqueID");
+        }
     }
 
     public String getName() {
@@ -55,6 +86,15 @@ public class Site {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    private void jsonParametersToMap(JSONArray jsonParameters) {
+        JSONObject pObj;
+        this.parameters = new HashMap<>();
+        for (Object p : jsonParameters) {
+            pObj = (JSONObject) p;
+            this.parameters.put((String) pObj.get("Key"), (String) pObj.get("Value"));
+        }
     }
 
     public Map<String, String> getParameters() {

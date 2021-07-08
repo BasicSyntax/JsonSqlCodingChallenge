@@ -1,3 +1,4 @@
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.junit.Test;
@@ -13,10 +14,8 @@ import static org.junit.Assert.assertEquals;
 
 public class SiteTest {
 
-    private List<Site> siteList = new ArrayList<>();
+    private final List<Site> siteList = new ArrayList<>();
     private Site site;
-    private JSONArray jsonDoc;
-    private Field field;
 
 
     @Test
@@ -28,7 +27,7 @@ public class SiteTest {
     public void doesNameGetterWork() throws NoSuchFieldException, IllegalAccessException {
         // given
         site = new Site();
-        field = site.getClass().getDeclaredField("name");
+        Field field = site.getClass().getDeclaredField("name");
         field.setAccessible(true);
         field.set(site, "Beaumont Spinks");
 
@@ -62,7 +61,7 @@ public class SiteTest {
         field.set(site, -200);
 
         // when
-        final Long result = site.getAlarmColor();
+        final long result = site.getAlarmColor();
 
         // then
         assertThat(result).isEqualTo(-200);
@@ -74,12 +73,12 @@ public class SiteTest {
         final Site site = new Site();
 
         // when
-        site.setAlarmColor(-250);
+        site.setAlarmColor(-250L);
 
         // then
         final Field field = site.getClass().getDeclaredField("alarmColor");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(site), -250);
+        assertThat(field.get(site)).isEqualTo(-250L);
     }
 
     @Test
@@ -256,11 +255,12 @@ public class SiteTest {
         assertEquals("Fields didn't match", field.get(site), "hashhashhashhash");
     }
 
+    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @Test
     public void testJsonExportWorksProperly() {
         // given
         try {
-            jsonDoc = (JSONArray) JSONValue.parse(new FileReader("input.json"));
+            JSONArray jsonDoc = (JSONArray) JSONValue.parse(new FileReader("input.json"));
             for (Object docs : jsonDoc) {
                 site = new Site(docs);
                 siteList.add(site);
@@ -269,15 +269,15 @@ public class SiteTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(siteList.toString());
 
         // when
         String result = siteList.toString();
 
         // that
-        assertThat(result).isEqualTo(null);
+        assertThat(result).isEqualTo("[Site{name='Site 1', alarmColor=-1671296, id=8, parameters={Peak Power=6410.88, Description=6410.88 kW, Panel Degradation Correction Coefficient=0.7, Situation=England, Temperature Correction Coefficient=-0.41, Name=Site 1}, dataSourcesCount=0, alertIcon='Communications', elementCount=640, uniqueID='87111c51-08df-4b29-85c5-43803a994bdd'}, Site{name='Site 2', alarmColor=-256, id=4, parameters={Peak Power=4010.16, Nominal Power=3355, Description=4010.160 kW, Panel Degradation Correction Coefficient=0.7, Temperature Correction Coefficient=-0.41, Name=Site 2}, dataSourcesCount=0, alertIcon='Warning', elementCount=514, uniqueID='20fb99ae-b940-484a-b3f2-2e7d619b952a'}, Site{name='Site 3', alarmColor=-256, id=10, parameters={Peak Power=7257.6, Nominal Power=5250, Description=7.257,6 kW, Panel Degradation Correction Coefficient=0.7, Temperature Correction Coefficient=-0.41, Name=Site 3}, dataSourcesCount=0, alertIcon='Communications', elementCount=753, uniqueID='e4429e5a-60ef-437e-8759-2d84574a5289'}, Site{name='Site 4', alarmColor=-256, id=11, parameters={Peak Power=20930.4, Description=20930.4 kW, Panel Degradation Correction Coefficient=0.7, Temperature Correction Coefficient=-0.41, Name=Site 4}, dataSourcesCount=0, alertIcon='Warning', elementCount=1938, uniqueID='bb0a0777-4c50-40ec-82ff-659fa33004a6'}]");
     }
 
+    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @Test
     public void testToString() {
         // given
@@ -303,7 +303,7 @@ public class SiteTest {
                 "name='" + "Site 1" + '\'' +
                 ", alarmColor=" + -1671296 +
                 ", id=" + 8 +
-                ", parameters=" + "parameters" +
+                ", parameters=" + "{Peak Power=6410.88, Description=6410.88 kW, Panel Degradation Correction Coefficient=0.7, Situation=England, Temperature Correction Coefficient=-0.41, Name=Site 1}" +
                 ", dataSourcesCount=" + 0 +
                 ", alertIcon='" + "Communications" + '\'' +
                 ", elementCount=" + 640 +
