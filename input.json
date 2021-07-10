@@ -1,0 +1,138 @@
+[
+  {
+    "Name": "Site 1",
+    "AlarmColor": -1671296,
+    "Id": 8,
+    "Parameters": [
+      {
+        "Key": "Name",
+        "Value": "Site 1"
+      },
+      {
+        "Key": "Peak Power",
+        "Value": "6410.88"
+      },
+      {
+        "Key": "Description",
+        "Value": "6410.88 kW"
+      },
+      {
+        "Key": "Situation",
+        "Value": "England"
+      },
+      {
+        "Key": "Panel Degradation Correction Coefficient",
+        "Value": "0.7"
+      },
+      {
+        "Key": "Temperature Correction Coefficient",
+        "Value": "-0.41"
+      }
+    ],
+    "DatasourcesCount": 0,
+    "_alertIcon": "Communications",
+    "ElementCount": 640,
+    "UniqueID": "87111c51-08df-4b29-85c5√-43803a994bdd"
+  },
+  {
+    "Name": "Site 2",
+    "AlarmColor": -256,
+    "Id": 4,
+    "Parameters": [
+      {
+        "Key": "Name",
+        "Value": "Site 2"
+      },
+      {
+        "Key": "Peak Power",
+        "Value": "4010.16"
+      },
+      {
+        "Key": "Nominal Power",
+        "Value": "3355"
+      },
+      {
+        "Key": "Description",
+        "Value": "4010.160 kW"
+      },
+      {
+        "Key": "Panel Degradation Correction Coefficient",
+        "Value": "0.7"
+      },
+      {
+        "Key": "Temperature Correction Coefficient",
+        "Value": "-0.41"
+      }
+    ],
+    "DatasourcesCount": 0,
+    "_alertIcon": "Warning",
+    "ElementCount": 514,
+    "UniqueID": "20fb99ae-b940-484a-b3f2-2e7d619b952a"
+  },
+  {
+    "Name": "Site 3",
+    "AlarmColor": -256,
+    "Id": 10,
+    "Parameters": [
+      {
+        "Key": "Name",
+        "Value": "Site 3"
+      },
+      {
+        "Key": "Peak Power",
+        "Value": "7257.6"
+      },
+      {
+        "Key": "Nominal Power",
+        "Value": "5250"
+      },
+      {
+        "Key": "Description",
+        "Value": "7.257,6 kW"
+      },
+      {
+        "Key": "Panel Degradation Correction Coefficient",
+        "Value": "0.7"
+      },
+      {
+        "Key": "Temperature Correction Coefficient",
+        "Value": "-0.41"
+      }
+    ],
+    "DatasourcesCount": 0,
+    "_alertIcon": "Communications",
+    "ElementCount": 753,
+    "UniqueID": "e4429e5a-60ef-437e-8759-2d84574a5289"
+  },
+  {
+    "Name": "Site 4",
+    "AlarmColor": -256,
+    "Id": 11,
+    "Parameters": [
+      {
+        "Key": "Name",
+        "Value": "Site 4"
+      },
+      {
+        "Key": "Peak Power",
+        "Value": "20930.4"
+      },
+      {
+        "Key": "Description",
+        "Value": "20930.4 kW"
+      },
+      {
+        "Key": "Panel Degradation Correction Coefficient",
+        "Value": "0.7"
+      },
+      {
+        "Key": "Temperature Correction Coefficient",
+        "Value": "-0.41"
+      }
+    ],
+    "DatasourcesCount": 0,
+    "_alertIcon": "Warning",
+    "ElementCount": 1938,
+    "UniqueID": "bb0a0777-4c50-40ec-82ff-659fa33004a6"
+  }
+]

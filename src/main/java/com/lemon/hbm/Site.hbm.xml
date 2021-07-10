@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<hibernate-mapping package="com.lemon.hbm">
+    <class name="Site" table="SITES">
+        <id name="id" column="SITE_ID">
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string"/>
+        <property name="alarmColor" type="long"/>
+        <!-- TODO parameters defines a one-to-many relationship -->
+        <!--        <property name="parameters"/>-->
+        <!--                  type="org.hibernate.test.DoubleStringType">-->
+        <!--            <column name="name"/>-->
+        <!--            <column name="_alertIcon"/>-->
+        <!--        </property>-->
+        <property name="dataSourcesCount" type="integer"/>
+        <property name="alertIcon" type="string"/>
+        <property name="elementCount" type="integer"/>
+        <property name="uniqueID" type="string"/>
+    </class>
+
+</hibernate-mapping>

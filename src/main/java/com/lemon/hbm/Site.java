@@ -1,30 +1,29 @@
+package com.lemon.hbm;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.Arrays;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+@Entity
 public class Site {
+    @Id
+    @GeneratedValue
+    private long id;
     private String name;
     private long alarmColor;
-    private int id;
+
+    @Transient
     private Map<String, String> parameters;
     private int dataSourcesCount;
     private String alertIcon;
     private int elementCount;
     private String uniqueID;
-
-    final private List<String> paramKeys = Arrays.asList(
-            "Name",
-            "Peak Power",
-            "Nominal Power",
-            "Description",
-            "Situation",
-            "Panel Degradation Correction Coefficient",
-            "Temperature Correction Coefficient"
-    );
 
     public Site() {
 
@@ -32,6 +31,17 @@ public class Site {
 
     public Site(Object docs) {
         exportJson(docs);
+    }
+
+    public Site(Site site) {
+        this.name = site.getName();
+        this.id = site.getId();
+        this.alarmColor = site.getAlarmColor();
+        this.parameters = site.getParameters();
+        this.dataSourcesCount = site.getDataSourcesCount();
+        this.alertIcon = site.getAlertIcon();
+        this.elementCount = site.getElementCount();
+        this.uniqueID = site.getUniqueID();
     }
 
     private void exportJson(Object json) {
@@ -44,7 +54,7 @@ public class Site {
             this.alarmColor = (long) docs.get("AlarmColor");
         }
         if (docs.containsKey("Id")) {
-            this.id = (int) ((long) docs.get("Id"));
+            this.id = (long) docs.get("Id");
         }
         if (docs.containsKey("Parameters")) {
             JSONArray jsonParameters = (JSONArray) docs.get("Parameters");
@@ -80,7 +90,7 @@ public class Site {
         this.alarmColor = alarmColor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -138,7 +148,7 @@ public class Site {
     }
 
     public String toString() {
-        return "Site{" +
+        return "com.lemon.hbm.Site{" +
                 "name='" + name + '\'' +
                 ", alarmColor=" + alarmColor +
                 ", id=" + id +
