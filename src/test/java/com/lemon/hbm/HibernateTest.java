@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HibernateTest {
     private SessionFactory sessionFactory;
+    private Session session;
     private Site site;
     private final List<Object> siteList = new ArrayList<>();
     private static final Logger log =
@@ -62,59 +63,25 @@ public class HibernateTest {
             e.printStackTrace();
         }
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setId(1);
-        site.setName("TestName");
-        site.setUniqueID("34567tdd-7tdd-7tdd-7tdd-324h23tdd");
-        checkList.add(new Site(site));
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
+        for (int idNumber = 1; idNumber <= 4; idNumber++) {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            site.setName("TestName" + idNumber);
+            site.setUniqueID("34567tdd-" + idNumber);
+            session.save(site);
+            log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
+            session.getTransaction().commit();
+            session.close();
 
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName2");
-        site.setUniqueID("987654tdd-7tdd-7tdd-7tdd-98765tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(2);
-        checkList.add(new Site(site));
-
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName3");
-        site.setUniqueID("7tdd-7tdd-7tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(3);
-        checkList.add(new Site(site));
-
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName4");
-        site.setUniqueID("324h23tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(4);
-        checkList.add(new Site(site));
+            site.setId(idNumber);
+            checkList.add(new Site(site));
+        }
 
         // when
         session = sessionFactory.openSession();
         session.beginTransaction();
         var result = session.createQuery("from Site").list();
         for (Site site : (List<Site>) result) {
-            log.info("Pulling Sites from Database : " + result.getClass() + ", length = " + result.size());
             System.out.println("Event (" + site.getName() + ") : " + site.getUniqueID());
             siteList.add(site);
         }

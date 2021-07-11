@@ -1,5 +1,6 @@
 package com.lemon.hbm;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -13,7 +14,8 @@ import java.util.Map;
 @Entity
 public class Site {
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
     private String name;
     private long alarmColor;
