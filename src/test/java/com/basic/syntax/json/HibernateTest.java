@@ -73,6 +73,7 @@ public class HibernateTest {
             session.getTransaction().commit();
             session.close();
 
+
             site.setId(idNumber);
             checkList.add(new Site(site));
         }
