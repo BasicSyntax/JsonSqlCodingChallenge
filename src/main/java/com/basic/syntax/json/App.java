@@ -1,4 +1,4 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,6 @@ public class App {
             LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        log.info("New User is created : ");
+        log.info("Beginning JsonSQLCodingChallenge by Beaumont Spinks / BasicSyntax : ");
     }
 }

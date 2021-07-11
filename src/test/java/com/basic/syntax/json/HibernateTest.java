@@ -1,4 +1,4 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.hibernate.Session;
@@ -51,63 +51,31 @@ public class HibernateTest {
     @Test
     @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @SuppressWarnings("unchecked")
-    public void checkMappingToDatabaseAndCompareToPOJO() {
+    public void checkMappingToDatabaseAndCompareToJavaObjects() {
         // given
         final var checkList = new ArrayList<>();
 
         try {
-            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/lemon/hbm/jsonTest.json"));
+            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTestFile.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        int idNumber = 1;
+//        for (int idNumber = 1; idNumber <= 4; idNumber++) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        site.setId(1);
-        site.setName("TestName");
-        site.setUniqueID("34567tdd-7tdd-7tdd-7tdd-324h23tdd");
+        site.setName("TestName" + idNumber);
+        site.setUniqueID("34567tdd-" + idNumber);
         checkList.add(new Site(site));
         session.save(site);
         log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
         session.getTransaction().commit();
         session.close();
-
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName2");
-        site.setUniqueID("987654tdd-7tdd-7tdd-7tdd-98765tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(2);
+        site.setId(idNumber);
         checkList.add(new Site(site));
-
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName3");
-        site.setUniqueID("7tdd-7tdd-7tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(3);
-        checkList.add(new Site(site));
-
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName4");
-        site.setUniqueID("324h23tdd");
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-
-        site.setId(4);
-        checkList.add(new Site(site));
+//        }
 
         // when
         session = sessionFactory.openSession();
@@ -115,7 +83,7 @@ public class HibernateTest {
         var result = session.createQuery("from Site").list();
         for (Site site : (List<Site>) result) {
             log.info("Pulling Sites from Database : " + result.getClass() + ", length = " + result.size());
-            System.out.println("Event (" + site.getName() + ") : " + site.getUniqueID());
+            System.out.println("Event (" + site.getName() + ") , id : " + site.getId() + ", uniqueID : " + site.getUniqueID());
             siteList.add(site);
         }
         session.getTransaction().commit();

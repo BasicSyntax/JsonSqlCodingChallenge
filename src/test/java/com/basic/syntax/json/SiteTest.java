@@ -1,12 +1,10 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.json.simple.JSONValue;
 import org.junit.Test;
 
 import java.io.FileReader;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,14 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class SiteTest {
 
-    private final List<Site> siteList = new ArrayList<>();
     private Site site;
-
-    
-    @Test
-    public void checkJsonExportsProperly() {
-
-    }
 
     @Test
     public void doesNameGetterWork() throws NoSuchFieldException, IllegalAccessException {
@@ -257,11 +248,11 @@ public class SiteTest {
 
     @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @Test
-    public void testToString() {
+    public void doesToStringGetTheCorrectValuesThroughJsonParsing() {
         // given
         // when
         try {
-            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/lemon/hbm/jsonTest.json"));
+            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTestFile.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();
@@ -271,14 +262,14 @@ public class SiteTest {
 
         // then
         assertThat(result).
-                isEqualTo("com.lemon.hbm.Site{" +
+                isEqualTo("Site{" +
                         "name='" + "TestName" + '\'' +
                         ", alarmColor=" + -1000 +
-                        ", id=" + 45 +
+                        ", id=" + 1 +
                         ", parameters=" +
-                        "{Peak Power=1000.11, " +
-                        "Description=4000.44 kW, " +
-                        "Panel Degradation Correction Coefficient=1.1, " +
+                        "{Peak Power=1234.56, " +
+                        "Description=7890.12 kW, " +
+                        "Panel Degradation Correction Coefficient=4.4, " +
                         "Situation=WorkingAsIntended, " +
                         "Temperature Correction Coefficient=-0.99, " +
                         "Name=TestParameterName}" +

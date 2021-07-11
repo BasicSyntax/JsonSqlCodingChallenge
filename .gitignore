@@ -1,4 +1,4 @@
 /.idea/
 /target/
-/src/main/java/com/lemon/hbm/HibernateUtil.java
+/src/main/java/com/basic/syntax/json/HibernateUtil.java
 /src/test/java/com/lemon/hbm/parameters.json

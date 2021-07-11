@@ -1,4 +1,4 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

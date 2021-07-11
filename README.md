@@ -1,6 +1,14 @@
 # JsonSqlCodingChallenge
 
-Coding challenge to parse JSON data into Java Objects and then map the objects to a database using JPA.
+Instructions: From the folder please use command :
+"java -cp target/classes/com/basic/syntax/json/App.java"
+This will begin the CLI interface, following such a prompt will show up for an input file, once inserted another prompt
+will show up for an output file. For now .json is the only supported filetype. If no output file is specified then
+output will be printed to the screen.
+
+Coding challenge parsing JSON data into Java Objects. To then map the objects to a database using JPA, Using Unit
+Testing through Test Driven Development (TDD). Using an in-memory H2 database with H2 dialect queries (to be switched to
+MySQL dialect queries). Providing a CLI interface to specify an input file and output file.
 
 1. Please use java to write the solution
 2. Please do not use Spring
@@ -15,8 +23,6 @@ Coding challenge to parse JSON data into Java Objects and then map the objects t
 10. Please demonstrate use of unit testing against the code
 11. This does not need to connect to an SQL database
 
-      Chosen Libraries:
-                   JSON Simple
-                   Hibernate
-                   H2 in-memory database
+    Chosen Libraries:
+    JSON Simple Hibernate H2 in-memory database
 

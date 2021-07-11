@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<hibernate-mapping package="com.lemon.hbm">
+<hibernate-mapping package="com.basic.syntax.json">
     <class name="Site" table="SITES">
         <id name="id" column="SITE_ID">
             <generator class="increment"/>
