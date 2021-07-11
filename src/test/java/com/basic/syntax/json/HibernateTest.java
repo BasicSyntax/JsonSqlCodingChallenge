@@ -1,6 +1,5 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -21,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HibernateTest {
     private SessionFactory sessionFactory;
-    private Session session;
     private Site site;
     private final List<Object> siteList = new ArrayList<>();
     private static final Logger log =
@@ -50,19 +48,19 @@ public class HibernateTest {
     }
 
     @Test
-    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @SuppressWarnings("unchecked")
     public void checkMappingToDatabaseAndCompareToPOJO() {
         // given
         final var checkList = new ArrayList<>();
 
         try {
-            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/lemon/hbm/jsonTest.json"));
+            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTest.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        Session session;
         for (int idNumber = 1; idNumber <= 4; idNumber++) {
             session = sessionFactory.openSession();
             session.beginTransaction();
@@ -80,7 +78,7 @@ public class HibernateTest {
         // when
         session = sessionFactory.openSession();
         session.beginTransaction();
-        var result = session.createQuery("from Site").list();
+        var result = session.createQuery("from com.basic.syntax.json.Site").list();
         for (Site site : (List<Site>) result) {
             System.out.println("Event (" + site.getName() + ") : " + site.getUniqueID());
             siteList.add(site);

@@ -1,4 +1,4 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.json.simple.JSONArray;
@@ -150,7 +150,7 @@ public class Site {
     }
 
     public String toString() {
-        return "com.lemon.hbm.Site{" +
+        return "com.basic.syntax.json.Site{" +
                 "name='" + name + '\'' +
                 ", alarmColor=" + alarmColor +
                 ", id=" + id +

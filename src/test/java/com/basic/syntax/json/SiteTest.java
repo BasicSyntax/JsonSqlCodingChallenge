@@ -1,12 +1,10 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.json.simple.JSONValue;
 import org.junit.Test;
 
 import java.io.FileReader;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,10 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class SiteTest {
 
-    private final List<Site> siteList = new ArrayList<>();
     private Site site;
 
-    
+
     @Test
     public void checkJsonExportsProperly() {
 
@@ -261,7 +258,7 @@ public class SiteTest {
         // given
         // when
         try {
-            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/lemon/hbm/jsonTest.json"));
+            var jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTest.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();
@@ -271,10 +268,10 @@ public class SiteTest {
 
         // then
         assertThat(result).
-                isEqualTo("com.lemon.hbm.Site{" +
+                isEqualTo("com.basic.syntax.json.Site{" +
                         "name='" + "TestName" + '\'' +
                         ", alarmColor=" + -1000 +
-                        ", id=" + 45 +
+                        ", id=" + 1 +
                         ", parameters=" +
                         "{Peak Power=1000.11, " +
                         "Description=4000.44 kW, " +

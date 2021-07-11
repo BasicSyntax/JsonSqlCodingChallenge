@@ -1,4 +1,4 @@
-package com.lemon.hbm;
+package com.basic.syntax.json;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
