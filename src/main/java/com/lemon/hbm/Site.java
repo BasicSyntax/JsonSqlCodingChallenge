@@ -148,7 +148,7 @@ public class Site {
     }
 
     public String toString() {
-        return "com.lemon.hbm.Site{" +
+        return "Site{" +
                 "name='" + name + '\'' +
                 ", alarmColor=" + alarmColor +
                 ", id=" + id +

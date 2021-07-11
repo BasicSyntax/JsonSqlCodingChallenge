@@ -17,7 +17,7 @@ public class SiteTest {
     private final List<Site> siteList = new ArrayList<>();
     private Site site;
 
-    
+
     @Test
     public void checkJsonExportsProperly() {
 
@@ -271,7 +271,7 @@ public class SiteTest {
 
         // then
         assertThat(result).
-                isEqualTo("com.lemon.hbm.Site{" +
+                isEqualTo("Site{" +
                         "name='" + "TestName" + '\'' +
                         ", alarmColor=" + -1000 +
                         ", id=" + 45 +
