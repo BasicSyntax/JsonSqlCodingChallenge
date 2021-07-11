@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <hibernate-mapping package="com.basic.syntax.json">
-    <class name="com.basic.syntax.json.Site" table="SITES">
+    <class name="Site" table="SITES">
         <id name="id" column="SITE_ID">
             <generator class="increment"/>
         </id>

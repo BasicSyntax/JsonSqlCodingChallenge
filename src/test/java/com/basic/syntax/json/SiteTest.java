@@ -258,7 +258,7 @@ public class SiteTest {
         // given
         // when
         try {
-            var jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTest.json"));
+            var jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTestFile.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();

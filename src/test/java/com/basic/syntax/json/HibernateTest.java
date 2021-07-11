@@ -1,5 +1,6 @@
 package com.basic.syntax.json;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -47,6 +48,7 @@ public class HibernateTest {
         }
     }
 
+    @SuppressFBWarnings("DM_DEFAULT_ENCODING")
     @Test
     @SuppressWarnings("unchecked")
     public void checkMappingToDatabaseAndCompareToPOJO() {
@@ -54,7 +56,7 @@ public class HibernateTest {
         final var checkList = new ArrayList<>();
 
         try {
-            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTest.json"));
+            Object jsonDoc = JSONValue.parse(new FileReader("src/test/java/com/basic/syntax/json/jsonTestFile.json"));
             site = new Site(jsonDoc);
         } catch (Exception e) {
             e.printStackTrace();

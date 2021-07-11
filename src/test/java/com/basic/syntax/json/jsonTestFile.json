@@ -1,0 +1,35 @@
+{
+  "Name": "TestName",
+  "AlarmColor": -1000,
+  "Id": 1,
+  "Parameters": [
+    {
+      "Key": "Name",
+      "Value": "TestParameterName"
+    },
+    {
+      "Key": "Peak Power",
+      "Value": "1234.56"
+    },
+    {
+      "Key": "Description",
+      "Value": "7890.12 kW"
+    },
+    {
+      "Key": "Situation",
+      "Value": "WorkingAsIntended"
+    },
+    {
+      "Key": "Panel Degradation Correction Coefficient",
+      "Value": "4.4"
+    },
+    {
+      "Key": "Temperature Correction Coefficient",
+      "Value": "-0.99"
+    }
+  ],
+  "DatasourcesCount": 10,
+  "_alertIcon": "IsThisWorking?",
+  "ElementCount": 500,
+  "UniqueID": "34567tdd-7tdd-7tdd-7tdd-324h23tdd"
+}
