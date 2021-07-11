@@ -61,26 +61,26 @@ public class HibernateTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Session session;
 
-        int idNumber = 1;
-//        for (int idNumber = 1; idNumber <= 4; idNumber++) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        site.setName("TestName" + idNumber);
-        site.setUniqueID("34567tdd-" + idNumber);
-        checkList.add(new Site(site));
-        session.save(site);
-        log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
-        session.getTransaction().commit();
-        session.close();
-        site.setId(idNumber);
-        checkList.add(new Site(site));
-//        }
+        for (int idNumber = 1; idNumber <= 4; idNumber++) {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            site.setName("TestName" + idNumber);
+            site.setUniqueID("34567tdd-" + idNumber);
+            session.save(site);
+            log.info("Saved site : " + site.getClass() + " : Event (" + site.getName() + ") : " + site.getUniqueID());
+            session.getTransaction().commit();
+            session.close();
+
+            site.setId(idNumber);
+            checkList.add(new Site(site));
+        }
 
         // when
         session = sessionFactory.openSession();
         session.beginTransaction();
-        var result = session.createQuery("from Site").list();
+        var result = session.createQuery("from com.basic.syntax.json.Site").list();
         for (Site site : (List<Site>) result) {
             log.info("Pulling Sites from Database : " + result.getClass() + ", length = " + result.size());
             System.out.println("Event (" + site.getName() + ") , id : " + site.getId() + ", uniqueID : " + site.getUniqueID());

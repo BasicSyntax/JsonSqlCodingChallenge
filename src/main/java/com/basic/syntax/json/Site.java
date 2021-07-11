@@ -31,11 +31,9 @@ public class Site {
     public Site() {
 
     }
-
     public Site(Object docs) {
         exportJson(docs);
     }
-
     public Site(Site site) {
         this.name = site.getName();
         this.id = site.getId();
@@ -76,31 +74,6 @@ public class Site {
             this.uniqueID = (String) docs.get("UniqueID");
         }
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public long getAlarmColor() {
-        return alarmColor;
-    }
-
-    public void setAlarmColor(long alarmColor) {
-        this.alarmColor = alarmColor;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     private void jsonParametersToMap(JSONArray jsonParameters) {
         JSONObject pObj;
         this.parameters = new HashMap<>();
@@ -110,42 +83,51 @@ public class Site {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public long getAlarmColor() {
+        return alarmColor;
+    }
+    public void setAlarmColor(long alarmColor) {
+        this.alarmColor = alarmColor;
+    }
+    public long getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public Map<String, String> getParameters() {
         return parameters;
     }
-
     public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
-
     public int getDataSourcesCount() {
         return dataSourcesCount;
     }
-
     public void setDataSourcesCount(int dataSourcesCount) {
         this.dataSourcesCount = dataSourcesCount;
     }
-
     public String getAlertIcon() {
         return alertIcon;
     }
-
     public void setAlertIcon(String alertIcon) {
         this.alertIcon = alertIcon;
     }
-
     public int getElementCount() {
         return elementCount;
     }
-
     public void setElementCount(int elementCount) {
         this.elementCount = elementCount;
     }
-
     public String getUniqueID() {
         return uniqueID;
     }
-
     public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
