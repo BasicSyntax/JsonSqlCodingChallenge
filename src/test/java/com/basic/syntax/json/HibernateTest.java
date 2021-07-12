@@ -38,6 +38,7 @@ public class HibernateTest {
         } catch (Exception e) {
             StandardServiceRegistryBuilder.destroy(registry);
             log.info("sessionFactory error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -73,7 +74,6 @@ public class HibernateTest {
             session.getTransaction().commit();
             session.close();
 
-
             site.setId(idNumber);
             checkList.add(new Site(site));
         }
@@ -83,7 +83,7 @@ public class HibernateTest {
         session.beginTransaction();
         var result = session.createQuery("from com.basic.syntax.json.Site").list();
         for (Site site : (List<Site>) result) {
-            System.out.println("Event (" + site.getName() + ") : " + site.getUniqueID());
+            System.out.println("Site (" + site.getName() + ") : " + site.getUniqueID());
             siteList.add(site);
         }
         session.getTransaction().commit();
