@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.basic.syntax.json.HibernateUtil.getSessionFactory;
@@ -21,7 +22,6 @@ public class App {
 
     @SuppressFBWarnings({"DM_DEFAULT_ENCODING", "NP_DEREFERENCE_OF_READLINE_VALUE"})
     public static void main(String[] args) throws IOException {
-        boolean flag = true;
         boolean outputFlag;
         String in, out = null;
         var bufferReader = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +29,6 @@ public class App {
         System.out.println("Welcome to my JSON reading program.");
         System.out.println("Please enter your input file holding JSON data, then press ENTER : ");
         in = bufferReader.readLine();
-        // TODO infinite looping
         while (true) {
             System.out.println("Would you like to declare an output file? Y or N : ");
             String isThereAnOutput = bufferReader.readLine();
@@ -85,7 +84,7 @@ public class App {
         for (var site : siteList) {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            var id = (Long) session.save(site);
+            session.save(site);
             session.getTransaction().commit();
             session.close();
             log.info("Persisting new site object " + site.getClass());
@@ -109,21 +108,29 @@ public class App {
             output.close();
         } else if (!outputFlag) {
             ((List<Site>) result).forEach(site -> {
-                System.out.println(site.getClass() + " : "
-                        + "\n\tId : " + site.getId() + " : "
-                        + "\n\tName : " + site.getName() + " : "
-                        + "\n\tAlarmColor : " + site.getAlarmColor() + " : "
-                        + "\n\tParameters : " + site.getParameters() + " : "
-                        + "\n\tDataSourcesCount : " + site.getDataSourcesCount() + " : "
-                        + "\n\t_alertIcon : " + site.getAlertIcon() + " : "
-                        + "\n\tElementCount : " + site.getElementCount() + " : "
-                        + "\n\tUniqueID : " + site.getUniqueID());
+                System.out.print(site.getClass()
+                        + "\n\tId : " + site.getId()
+                        + "\n\tName : " + site.getName()
+                        + "\n\tAlarmColor : " + site.getAlarmColor()
+                        + "\n\tParameters : " + "\n");
+
+                new App().printParameters(site.getParameters());
+
+                System.out.print("\tDataSourcesCount : " + site.getDataSourcesCount()
+                        + "\n\t_alertIcon : " + site.getAlertIcon()
+                        + "\n\tElementCount : " + site.getElementCount()
+                        + "\n\tUniqueID : " + site.getUniqueID() + "\n");
             });
         }
         session.getTransaction().commit();
         session.close();
 
         shutdown();
+    }
+
+    private void printParameters(HashMap p) {
+        p.forEach((k, v) ->
+                System.out.print("\t\t " + k + " : " + v + "\n"));
     }
 
 }

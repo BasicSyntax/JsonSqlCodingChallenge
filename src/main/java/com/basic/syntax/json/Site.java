@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 public class Site {
@@ -73,60 +72,76 @@ public class Site {
             this.uniqueID = (String) docs.get("UniqueID");
         }
     }
+
     private void jsonParametersToMap(JSONArray jsonParameters) {
         JSONObject pObj;
         this.parameters = new HashMap<>();
         for (Object p : jsonParameters) {
             pObj = (JSONObject) p;
-            this.parameters.put( pObj.get("Key"), pObj.get("Value"));
+            this.parameters.put(pObj.get("Key"), pObj.get("Value"));
         }
     }
 
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public long getAlarmColor() {
         return alarmColor;
     }
+
     public void setAlarmColor(long alarmColor) {
         this.alarmColor = alarmColor;
     }
+
     public long getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public HashMap getParameters() {
         return parameters;
     }
+
     public void setParameters(HashMap parameters) {
         this.parameters = parameters;
     }
+
     public int getDataSourcesCount() {
         return dataSourcesCount;
     }
+
     public void setDataSourcesCount(int dataSourcesCount) {
         this.dataSourcesCount = dataSourcesCount;
     }
+
     public String getAlertIcon() {
         return alertIcon;
     }
+
     public void setAlertIcon(String alertIcon) {
         this.alertIcon = alertIcon;
     }
+
     public int getElementCount() {
         return elementCount;
     }
+
     public void setElementCount(int elementCount) {
         this.elementCount = elementCount;
     }
+
     public String getUniqueID() {
         return uniqueID;
     }
+
     public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
