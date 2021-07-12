@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.FileReader;
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -128,7 +129,7 @@ public class SiteTest {
         final Site site = new Site();
 
         // when
-        site.setParameters(Map.of("Parameter", "Map"));
+        site.setParameters((HashMap) Map.of("Parameter", "Map"));
 
         // then
         final Field field = site.getClass().getDeclaredField("parameters");

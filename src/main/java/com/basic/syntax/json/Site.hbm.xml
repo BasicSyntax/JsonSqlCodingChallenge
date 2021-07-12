@@ -1,21 +1,40 @@
 <?xml version="1.0"?>
 <hibernate-mapping package="com.basic.syntax.json">
     <class name="Site" table="SITES">
-        <id name="id" column="SITE_ID">
+        <id name="id" type="long" column="SITE_ID">
             <generator class="increment"/>
         </id>
         <property name="name" type="string"/>
         <property name="alarmColor" type="long"/>
-        <!-- TODO parameters defines a one-to-many relationship -->
-        <!--        <property name="parameters"/>-->
-        <!--                  type="org.hibernate.test.DoubleStringType">-->
-        <!--            <column name="name"/>-->
-        <!--            <column name="_alertIcon"/>-->
-        <!--        </property>-->
+        <map name="parameters" cascade="all">
+            <key column="employee_id"/>
+            <index column="parameter_name" type="string"/>
+            <index column="peakPower" type="string"/>
+            <index column="nominalPower" type="string"/>
+            <index column="description" type="string"/>
+            <index column="situation" type="string"/>
+            <index column="panelDegradationCorrectionCoefficient" type="string"/>
+            <index column="temperatureCorrectionCoefficient" type="string"/>
+            <one-to-many class="Parameters"/>
+        </map>
         <property name="dataSourcesCount" type="integer"/>
         <property name="alertIcon" type="string"/>
         <property name="elementCount" type="integer"/>
         <property name="uniqueID" type="string"/>
+    </class>
+
+    <class name="Parameters" table="PARAMETERS">
+        <id name="id" type="long" column="PARAMETER_ID">
+            <generator class="native"/>
+        </id>
+        <property name="parameter_name" column="parameter_name" type="string"/>
+        <property name="peakPower" column="peakPower" type="string"/>
+        <property name="nominalPower" column="nominalPower" type="string"/>
+        <property name="description" column="description" type="string"/>
+        <property name="situation" column="situation" type="string"/>
+        <property name="panelDegradationCorrectionCoefficient" column="panelDegradationCorrectionCoefficient"
+                  type="string"/>
+        <property name="temperatureCorrectionCoefficient" column="temperatureCorrectionCoefficient" type="string"/>
     </class>
 
 </hibernate-mapping>

@@ -26,92 +26,104 @@ public class App {
         String in, out = null;
         var bufferReader = new BufferedReader(new InputStreamReader(System.in));
 
-        while (flag) {
-            System.out.println("Welcome to my JSON reading program.");
-            System.out.println("Please enter your input file holding JSON data, then press ENTER : ");
-            in = bufferReader.readLine();
-            // TODO infinite looping
-            while (true) {
-                System.out.println("Would you like to declare an output file? Y or N : ");
-                String isThereAnOutput = bufferReader.readLine();
-                if (isThereAnOutput.equalsIgnoreCase("Y")) {
-                    System.out.println("Please enter your output file, then press ENTER : ");
-                    out = bufferReader.readLine();
-                    outputFlag = true;
-                    flag = false;
-                    break;
-                } else if (isThereAnOutput.equalsIgnoreCase("N")) {
-                    outputFlag = false;
-                    flag = false;
-                    break;
-                } else {
-                    System.out.println("Please enter only valid input.");
-                }
-            }
-
-            try {
-                JSONArray jsonDoc = (JSONArray) JSONValue.parse(new FileReader(in));
-                for (Object site : jsonDoc) {
-                    site = new Site(site);
-                    siteList.add((Site) site);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("Persisting input to Database, please wait...");
-            log.info("Initializing Session...");
-            var sessionFactory = getSessionFactory();
-            var session = sessionFactory.openSession();
-            if (session != null) {
-                log.info("Session running");
+        System.out.println("Welcome to my JSON reading program.");
+        System.out.println("Please enter your input file holding JSON data, then press ENTER : ");
+        in = bufferReader.readLine();
+        // TODO infinite looping
+        while (true) {
+            System.out.println("Would you like to declare an output file? Y or N : ");
+            String isThereAnOutput = bufferReader.readLine();
+            if (isThereAnOutput.equalsIgnoreCase("Y")) {
+                System.out.println("Please enter your output file, then press ENTER : ");
+                out = bufferReader.readLine();
+                outputFlag = true;
+                break;
+            } else if (isThereAnOutput.equalsIgnoreCase("N")) {
+                outputFlag = false;
+                break;
             } else {
-                log.info("Session is null - " + sessionFactory.getClass());
+                System.out.println("Please enter only valid input.");
             }
-
-            for (var site : siteList) {
-                session = sessionFactory.openSession();
-                session.beginTransaction();
-                session.save(site);
-                session.getTransaction().commit();
-                session.close();
-                log.info("Persisting new site object " + site.getClass());
-            }
-
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            var result = session.createQuery("from com.basic.syntax.json.Site").list();
-            if (outputFlag && out != null) {
-                log.info("Beginning write to output file - " + out);
-                BufferedWriter output = new BufferedWriter(new FileWriter(out));
-
-                ((List<Site>) result).forEach(site -> {
-                    try {
-                        output.write(String.valueOf(site));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-
-                output.close();
-            } else if (!outputFlag) {
-                ((List<Site>) result).forEach(site -> {
-                    System.out.println(site.getClass() + " : "
-                            + "\n\tId : " + site.getId() + " : "
-                            + "\n\tName : " + site.getName() + " : "
-                            + "\n\tAlarmColor : " + site.getAlarmColor() + " : "
-                            + "\n\tParameters : " + site.getParameters() + " : "
-                            + "\n\tDataSourcesCount : " + site.getDataSourcesCount() + " : "
-                            + "\n\t_alertIcon : " + site.getAlertIcon() + " : "
-                            + "\n\tElementCount : " + site.getElementCount() + " : "
-                            + "\n\tUniqueID : " + site.getUniqueID());
-                });
-            }
-            session.getTransaction().commit();
-            session.close();
-
-            shutdown();
         }
 
+        try {
+            JSONArray jsonDoc = (JSONArray) JSONValue.parse(new FileReader(in));
+            for (Object site : jsonDoc) {
+                site = new Site(site);
+                siteList.add((Site) site);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Persisting input to Database, please wait...");
+        log.info("Initializing Session...");
+        var sessionFactory = getSessionFactory();
+        var session = sessionFactory.openSession();
+
+//        create table EMPLOYEE (
+//                id INT NOT NULL auto_increment,
+//                first_name VARCHAR(20) default NULL,
+//                last_name  VARCHAR(20) default NULL,
+//                salary     INT  default NULL,
+//                PRIMARY KEY (id)
+//);
+//        create table CERTIFICATE (
+//                id INT NOT NULL auto_increment,
+//                certificate_type VARCHAR(40) default NULL,
+//                certificate_name VARCHAR(30) default NULL,
+//                employee_id INT default NULL,
+//                PRIMARY KEY (id)
+//);
+
+        if (session != null) {
+            log.info("Session running");
+        } else {
+            log.info("Session is null - " + sessionFactory.getClass());
+        }
+
+        for (var site : siteList) {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            var id = (Long) session.save(site);
+            session.getTransaction().commit();
+            session.close();
+            log.info("Persisting new site object " + site.getClass());
+        }
+
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        var result = session.createQuery("from com.basic.syntax.json.Site").list();
+        if (outputFlag && out != null) {
+            log.info("Beginning write to output file - " + out);
+            BufferedWriter output = new BufferedWriter(new FileWriter(out));
+
+            ((List<Site>) result).forEach(site -> {
+                try {
+                    output.write(String.valueOf(site));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            output.close();
+        } else if (!outputFlag) {
+            ((List<Site>) result).forEach(site -> {
+                System.out.println(site.getClass() + " : "
+                        + "\n\tId : " + site.getId() + " : "
+                        + "\n\tName : " + site.getName() + " : "
+                        + "\n\tAlarmColor : " + site.getAlarmColor() + " : "
+                        + "\n\tParameters : " + site.getParameters() + " : "
+                        + "\n\tDataSourcesCount : " + site.getDataSourcesCount() + " : "
+                        + "\n\t_alertIcon : " + site.getAlertIcon() + " : "
+                        + "\n\tElementCount : " + site.getElementCount() + " : "
+                        + "\n\tUniqueID : " + site.getUniqueID());
+            });
+        }
+        session.getTransaction().commit();
+        session.close();
+
+        shutdown();
     }
+
 }

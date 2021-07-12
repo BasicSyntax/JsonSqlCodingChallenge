@@ -4,10 +4,10 @@ import org.hibernate.annotations.GenericGenerator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +20,8 @@ public class Site {
     private String name;
     private long alarmColor;
 
-    @Transient
-    private Map<String, String> parameters;
+    @Column(columnDefinition = "TEXT")
+    private HashMap parameters;
     private int dataSourcesCount;
     private String alertIcon;
     private int elementCount;
@@ -78,7 +78,7 @@ public class Site {
         this.parameters = new HashMap<>();
         for (Object p : jsonParameters) {
             pObj = (JSONObject) p;
-            this.parameters.put((String) pObj.get("Key"), (String) pObj.get("Value"));
+            this.parameters.put( pObj.get("Key"), pObj.get("Value"));
         }
     }
 
@@ -100,10 +100,10 @@ public class Site {
     public void setId(int id) {
         this.id = id;
     }
-    public Map<String, String> getParameters() {
+    public HashMap getParameters() {
         return parameters;
     }
-    public void setParameters(Map<String, String> parameters) {
+    public void setParameters(HashMap parameters) {
         this.parameters = parameters;
     }
     public int getDataSourcesCount() {
